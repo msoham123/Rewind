@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'profile.dart';
+
 class RewindApp extends StatelessWidget {
   const RewindApp({super.key});
 
@@ -64,21 +66,26 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.all(5),
                           onPressed: () {},
                           icon: Icon(Icons.people),
-                          iconSize: 36,
+                          iconSize: 28,
                           color: Colors.white),
                       Text("Rewind",
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
-                              fontSize: 28)),
+                              fontSize: 24)),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ProfilePage()));
+                          },
                           padding: EdgeInsets.all(5),
                           icon: CircleAvatar(
                               radius: 18,
                               backgroundImage:
                                   NetworkImage('../assets/images/pfp.jpg')),
-                          iconSize: 36,
+                          iconSize: 28,
                           color: Colors.white),
                     ]),
               ),
