@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:Rewind/services/FirestoreService.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Rewind/models/Message.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -56,6 +64,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  FirestoreService _db = FirestoreService();
+
+  void _listMessages() async {
+    List<Message> messages = await _db.getMessages();
+    messages.forEach((msg) {
+      print(msg.toJson());
+    });
+  }
+
+  void _addTestMessage() async {
+    Message msg = Message(
+      author: 'w4ciwehu54',
+      content: 'Hello world',
+      emoji: '🔥',
+      timestamp: Timestamp.now(),
+      lat: 10.4,
+      long: 15.6
+    );
+    await _db.pushMessage(msg);
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -116,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _listMessages,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

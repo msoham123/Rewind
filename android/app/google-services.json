@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "30672406437",
+    "project_id": "rewind-6e900",
+    "storage_bucket": "rewind-6e900.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30672406437:android:4827904d56a095c60e0a4c",
+        "android_client_info": {
+          "package_name": "com.example.rewind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHl45uRuscDtC3Rif6FLa3uIvLCBjV2to"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
