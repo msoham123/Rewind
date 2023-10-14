@@ -1,19 +1,8 @@
+import 'package:Rewind/ar_screen.dart';
+import 'package:Rewind/location_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:Rewind/services/FirestoreService.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Rewind/models/Message.dart';
-import 'package:Rewind/auth/SignIn.dart';
-import 'package:Rewind/auth/home_screen.dart';
-import 'package:page_transition/page_transition.dart';
-import 'firebase_options.dart';
 
-import 'package:Rewind/main.dart';
-
-void main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 
@@ -44,18 +33,50 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // sign in page, onsignin navigate to MyHomePage
-      home: SignIn(
-        onSignIn: () {
-          print("HI");
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyHomePage(title: "HI")),
+      home: MyHome(),
+    );
+  }
+}
 
-            );
-        },
+class MyHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                try {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ArScreen())
+                  );
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: const Text("AR Demo")
+          ),
+          ElevatedButton(
+              onPressed: () {
+                try {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LocationScreen())
+                  );
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: const Text("Location Test")
+          ),
+        ],
       ),
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
