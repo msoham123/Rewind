@@ -8,9 +8,10 @@ class Message {
   Timestamp timestamp;
   double lat;
   double long;
+  double altitude;
 
 
-  Message({this.id, required this.author, required this.content, required this.emoji, required this.timestamp, required this.lat, required this.long});
+  Message({this.id, required this.author, required this.content, required this.emoji, required this.timestamp, required this.lat, required this.long, required this.altitude});
 
   factory Message.fromJson(Map<String, dynamic> data) {
     data = data ?? {};
@@ -21,7 +22,8 @@ class Message {
       emoji: data['emoji'],
       timestamp: data['timestamp'],
       lat: data['lat'],
-      long: data['long']
+      long: data['long'],
+      altitude: data['altitude']
     );
   }
 
@@ -32,7 +34,8 @@ class Message {
       'emoji': emoji,
       'timestamp': timestamp,
       'lat': lat,
-      'long': long
+      'long': long,
+      'altitude': altitude,
     };
     if (id != null) {
       map['id'] = id;

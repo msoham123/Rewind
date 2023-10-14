@@ -45,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
         emoji: '🔥',
         timestamp: Timestamp.now(),
         lat: 10.4,
-        long: 15.6
+        long: 15.6,
+        altitude: 20.0
     );
     await _db.pushMessage(msg);
   }
