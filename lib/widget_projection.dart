@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:Rewind/services/LocationService.dart';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,16 @@ class _TapPageState extends State<TapPage> {
     // flutter: long -84.4050418037611
     // flutter: alt 298.62220001220703
 
+    // far away north
+    // flutter: lat 33.778164805951874
+    // flutter: long -84.40504231234652
+    // flutter: alt 297.3958206176758
+
+    //far away east
+    // flutter: lat 33.778164411284926
+    // flutter: long -84.40504197497975
+    // flutter: alt 299.05274200439453
+
     setState(() {
       isLoaded = true;
     });
@@ -84,11 +96,16 @@ class _TapPageState extends State<TapPage> {
       radius: 0.1,
     );
 
+    double lat_dif = 33.77816453570224 - locationData!.latitude!;
+    double long_dif = -84.40504197497975 - locationData!.longitude!;
+
+    double lat_num = lat_dif / -2.5;
+    double long_num = long_dif / 2.5;
 
     final node = ARKitNode(
       name: 'sphere',
       geometry: sphere,
-      position: vector.Vector3(0, 0, -0.5),
+      position: vector.Vector3(long_dif / long_num, 0 , lat_dif / lat_num),
     );
     this.arkitController.add(node);
   }
