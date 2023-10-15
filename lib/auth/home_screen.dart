@@ -1,4 +1,5 @@
 import 'package:Rewind/models/Conversation.dart';
+import 'package:Rewind/services/LocationService.dart';
 import 'package:flutter/material.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   FirestoreService? _db = null;
+  LocationService? _loc = null;
 
   void _addTestMemory() async {
     Memory memory = Memory(
@@ -54,10 +56,17 @@ class _MyHomePageState extends State<MyHomePage> {
     _db!.addReply(convoID, msg);
   }
 
+  void _testLocService() async {
+    print(_loc!.locationData);
+  }
+
   @override
   Widget build(BuildContext context) {
     _db = Provider.of<FirestoreService>(context, listen: false);
     _db!.loadMemories();
+
+    _loc = Provider.of<LocationService>(context, listen: false);
+    _loc!.initializeLocation();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -104,6 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _addTestReply,
               tooltip: 'Reply',
               child: const Icon(Icons.message),
+            ),
+            FloatingActionButton(
+              onPressed: _testLocService,
+              tooltip: 'Reply',
+              child: const Icon(Icons.map),
             ),
           ],
         ),

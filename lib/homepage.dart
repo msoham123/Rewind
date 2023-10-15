@@ -1,5 +1,6 @@
 import 'package:Rewind/services/FirebaseAuthService.dart';
 import 'package:Rewind/services/FirestoreService.dart';
+import 'package:Rewind/services/LocationService.dart';
 import 'package:Rewind/newPost.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,6 +22,9 @@ class RewindApp extends StatelessWidget {
           Provider<FirestoreService>(
             create: (_) => FirestoreService(),
           ),
+          Provider<LocationService>(
+            create: (_) => LocationService(),
+          ),
         ],
         child: MaterialApp(
           title: 'Rewind',
@@ -30,6 +34,7 @@ class RewindApp extends StatelessWidget {
             useMaterial3: true,
           ),
           home: const HomePage(title: "HI"),
+          //home: const MyHomePage(title: "HI"),
         ));
   }
 }
