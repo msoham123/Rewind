@@ -1,9 +1,10 @@
+import 'package:Rewind/models/Conversation.dart';
 import 'package:flutter/material.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Rewind/models/Message.dart';
-
-
+import 'package:Rewind/models/Memory.dart';
+import 'package:Rewind/auth/SignIn.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -27,39 +28,36 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   FirestoreService _db = FirestoreService();
 
-  void _listMessages() async {
-    List<Message> messages = await _db.getMessages();
-    messages.forEach((msg) {
-      print(msg.toJson());
-    });
-  }
-
-  void _addTestMessage() async {
-    Message msg = Message(
+  void _addTestMemory() async {
+    Memory memory = Memory(
         author: 'w4ciwehu54',
-        content: 'Hello world',
         emoji: '🔥',
         timestamp: Timestamp.now(),
         lat: 10.4,
         long: 15.6,
         altitude: 20.0
     );
-    await _db.pushMessage(msg);
+    Message msg = Message(
+      author: 'w4ciwehu54',
+      content: 'Hello world',
+      timestamp: Timestamp.now()
+    );
+    await _db.addMemory(memory, msg);
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void _addTestReply() async {
+    final String convoID = 'BObg7fQ92LHmLlj52HCt';
+    Message msg = Message(
+        author: 'sammy:)',
+        content: 'Another 1',
+        timestamp: Timestamp.now()
+    );
+    _db.addReply(convoID, msg);
   }
 
   @override
   Widget build(BuildContext context) {
+    _db.loadMemories();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -102,11 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            FloatingActionButton(
+              onPressed: _addTestReply,
+              tooltip: 'Reply',
+              child: const Icon(Icons.message),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _listMessages,
+        onPressed: _addTestMemory,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
