@@ -28,7 +28,7 @@ class RewindApp extends StatelessWidget {
           Provider<FirebaseAuthService>(
             create: (_) => FirebaseAuthService(),
           ),
-          Provider<FirestoreService>(
+          ChangeNotifierProvider<FirestoreService>(
             create: (_) => FirestoreService(),
           ),
         ],

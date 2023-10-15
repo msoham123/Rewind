@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              ...listOfPosts(context)
+              ...listOfPosts(Provider.of<FirestoreService>(context, listen: true).getMemories())
             ],
           ),
         ),
@@ -112,8 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-List<Widget> listOfPosts(BuildContext context) {
-  List<Memory> memories = Provider.of<FirestoreService>(context, listen: false).getMemories();
+List<Widget> listOfPosts(List<Memory> memories) {
   List<Widget> allPosts = [];
     memories.forEach(
       (mem) => allPosts.add(Padding(

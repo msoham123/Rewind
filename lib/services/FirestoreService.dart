@@ -2,8 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Rewind/models/Memory.dart';
 import 'package:Rewind/models/Conversation.dart';
+import 'package:flutter/cupertino.dart';
 
-class FirestoreService {
+class FirestoreService extends ChangeNotifier {
   final _firestoreService = FirebaseFirestore.instance;
   final Stream<QuerySnapshot> _memoryStream = FirebaseFirestore.instance.collection("memories").snapshots();
   List<Memory> _memories = [];
@@ -53,6 +54,7 @@ class FirestoreService {
           });
           if (exists) {
             _memories.add(new_memory);
+            notifyListeners();
           }
         }
       });
