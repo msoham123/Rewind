@@ -33,7 +33,7 @@ class _NewPostPageState extends State<NewPostPage> {
       Memory memory = Memory(
           author: authorId,
           emoji: emoji,
-          preview: "yo",
+          preview: text,
           timestamp: Timestamp.now(),
           lat: pos.latitude ?? 0.0,
           long: pos.longitude ?? 0.0,
