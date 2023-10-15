@@ -16,7 +16,7 @@ class _NewPostPageState extends State<NewPostPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.black,
             body: Column(
               children: [
                 Padding(
