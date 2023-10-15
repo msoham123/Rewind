@@ -1,22 +1,35 @@
+import 'package:Rewind/services/FirebaseAuthService.dart';
+import 'package:Rewind/services/FirestoreService.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 import 'profile.dart';
+import 'package:Rewind/auth/home_screen.dart';
 
 class RewindApp extends StatelessWidget {
   const RewindApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rewind',
-      theme: ThemeData(
-        fontFamily: 'JetBrainsMono',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(title: 'Rewind'),
-    );
+    return MultiProvider(
+        providers: [
+          Provider<FirebaseAuthService>(
+            create: (_) => FirebaseAuthService(),
+          ),
+          Provider<FirestoreService>(
+            create: (_) => FirestoreService(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Rewind',
+          theme: ThemeData(
+            fontFamily: 'JetBrainsMono',
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const HomePage(title: "HI"),
+        ));
   }
 }
 

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Rewind/models/Memory.dart';
-import 'package:Rewind/auth/SignIn.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -26,7 +25,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  FirestoreService _db = FirestoreService();
+  FirestoreService? _db = null;
 
   void _addTestMemory() async {
     Memory memory = Memory(
@@ -42,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       content: 'Hello world',
       timestamp: Timestamp.now()
     );
-    await _db.addMemory(memory, msg);
+    await _db!.addMemory(memory, msg);
   }
 
   void _addTestReply() async {
@@ -52,12 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
         content: 'Another 1',
         timestamp: Timestamp.now()
     );
-    _db.addReply(convoID, msg);
+    _db!.addReply(convoID, msg);
   }
 
   @override
   Widget build(BuildContext context) {
-    _db.loadMemories();
+    _db = Provider.of<FirestoreService>(context, listen: false);
+    _db!.loadMemories();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
