@@ -1,42 +1,9 @@
 import 'package:Rewind/newPost.dart';
 import 'package:Rewind/profile.dart';
-import 'package:Rewind/services/FirebaseAuthService.dart';
-import 'package:Rewind/services/FirestoreService.dart';
-import 'package:Rewind/services/LocationService.dart';
 import 'package:Rewind/widget_projection.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
-class RewindApp extends StatelessWidget {
-  const RewindApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          Provider<FirebaseAuthService>(
-            create: (_) => FirebaseAuthService(),
-          ),
-          Provider<FirestoreService>(
-            create: (_) => FirestoreService(),
-          ),
-          Provider<LocationService>(
-            create: (_) => LocationService(),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Rewind',
-          theme: ThemeData(
-            fontFamily: 'JetBrainsMono',
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: const HomePage(title: "HI"),
-          //home: const MyHomePage(title: "HI"),
-        ));
-  }
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
