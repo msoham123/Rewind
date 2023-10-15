@@ -1,5 +1,9 @@
+import 'package:Rewind/models/Memory.dart';
+import 'package:Rewind/services/FirestoreService.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -109,9 +113,10 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 List<Widget> listOfPosts(BuildContext context) {
-  List<Widget> allPosts = List<Widget>.generate(
-      50,
-      (i) => Padding(
+  List<Memory> memories = Provider.of<FirestoreService>(context, listen: false).getMemories();
+  List<Widget> allPosts = [];
+    memories.forEach(
+      (mem) => allPosts.add(Padding(
             padding: const EdgeInsets.all(2),
             child: GestureDetector(
               child: Container(
@@ -131,7 +136,7 @@ List<Widget> listOfPosts(BuildContext context) {
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                           Text(
-                            "12:23 AM - 10/15/23",
+                            mem.timestamp.toDate().toString().substring(0, 16),
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ],
@@ -139,7 +144,7 @@ List<Widget> listOfPosts(BuildContext context) {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                         child: Text(
-                          "This is post #" + (i + 1).toString() + "!",
+                          mem.preview,
                           style: TextStyle(
                               color: Colors.white, fontFamily: "Inter"),
                         ),
@@ -150,7 +155,7 @@ List<Widget> listOfPosts(BuildContext context) {
               ),
               onTap: () {},
             ),
-          ));
+          )));
 
   return allPosts;
 }

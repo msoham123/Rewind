@@ -5,13 +5,14 @@ class Memory {
   String? conversationId;
   String author;
   String emoji;
+  String preview;
   Timestamp timestamp;
   double lat;
   double long;
   double altitude;
 
 
-  Memory({this.id, this.conversationId, required this.author, required this.emoji, required this.timestamp, required this.lat, required this.long, required this.altitude});
+  Memory({this.id, this.conversationId, required this.author, required this.emoji, required this.preview, required this.timestamp, required this.lat, required this.long, required this.altitude});
 
   factory Memory.fromJson(Map<String, dynamic> data) {
     data = data ?? {};
@@ -20,6 +21,7 @@ class Memory {
       conversationId: data['conversationId'],
       author: data['author'],
       emoji: data['emoji'],
+      preview: data['preview'],
       timestamp: data['timestamp'],
       lat: data['lat'],
       long: data['long'],
@@ -31,6 +33,7 @@ class Memory {
     Map<String, dynamic> map = {
       'author': author,
       'emoji': emoji,
+      'preview': preview,
       'timestamp': timestamp,
       'lat': lat,
       'long': long,

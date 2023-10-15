@@ -8,6 +8,7 @@ class FirestoreService {
   final Stream<QuerySnapshot> _memoryStream = FirebaseFirestore.instance.collection("memories").snapshots();
   List<Memory> _memories = [];
   List<Memory> getMemories() => _memories;
+  bool adding = false;
 
   // push a memory to the 'memory' collection
   Future<void> addMemory(Memory memory, Message message) async {
@@ -17,9 +18,11 @@ class FirestoreService {
 
     memory.conversationId = res.id;
 
+    adding = true;
     var fb_memory = await _firestoreService.collection('memories').add(memory.toJson());
     memory.id = fb_memory.id;
     _memories.add(memory);
+    adding = false;
   }
 
   // return all memories from the memory collection
@@ -30,7 +33,7 @@ class FirestoreService {
         output.add(Memory.fromJson({...doc.data(), 'id': doc.id}));
       });
     });
-    // listenToMemories();
+    listenToMemories();
     _memories = output;
     return output;
   }
@@ -39,9 +42,18 @@ class FirestoreService {
   void listenToMemories() {
     _memoryStream.listen((snapshot) {
       snapshot.docChanges.forEach((change) {
-        if (change.type == DocumentChangeType.added) {
-          print(change.doc.data());
-          // _memories.add(Memory.fromJson({...change.doc.data()!, 'id': change.doc.id}));
+        if (change.type == DocumentChangeType.added && !adding) {
+          Memory? new_memory = Memory.fromJson({...(change.doc.data() as Map<String, dynamic>), 'id': change.doc.id});
+          bool exists = true;
+          _memories.forEach((mem) {
+            if (mem.id != null && mem.id == new_memory.id) {
+              exists = false;
+              return;
+            }
+          });
+          if (exists) {
+            _memories.add(new_memory);
+          }
         }
       });
     });

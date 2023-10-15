@@ -1,5 +1,6 @@
 import 'package:Rewind/newPost.dart';
 import 'package:Rewind/profile.dart';
+import 'package:Rewind/services/FirestoreService.dart';
 import 'package:Rewind/widget_projection.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<FirestoreService>(context, listen: false).loadMemories();
     return SafeArea(
         child: Scaffold(
       body: Stack(

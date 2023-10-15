@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Memory memory = Memory(
         author: 'w4ciwehu54',
         emoji: '🔥',
+        preview: 'yo',
         timestamp: Timestamp.now(),
         lat: 10.4,
         long: 15.6,
