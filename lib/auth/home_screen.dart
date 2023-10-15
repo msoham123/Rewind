@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Rewind/models/Message.dart';
-import 'package:Rewind/auth/SignIn.dart';
-import 'package:page_transition/page_transition.dart';
 
-import 'package:Rewind/main.dart';
 
 
 class MyHomePage extends StatefulWidget {

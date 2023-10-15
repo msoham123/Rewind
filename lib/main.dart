@@ -1,8 +1,15 @@
-import 'package:Rewind/ar_screen.dart';
+import 'package:Rewind/widget_projection.dart';
 import 'package:Rewind/location_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -53,7 +60,7 @@ class MyHome extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ArScreen())
+                          builder: (context) => TapPage())
                   );
                 } catch (e) {
                   print(e);
