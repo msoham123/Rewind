@@ -5,15 +5,13 @@ class LocationService {
   Location location = new Location();
   LocationData? locationData;
 
-  bool isLoaded = false;
-
   void _initializeCallback() async {
-    if (isLoaded) location.onLocationChanged.listen((LocationData currentLocation) {
+    location.onLocationChanged.listen((LocationData currentLocation) {
       locationData = currentLocation;
     });
   }
 
-  void initializeLocation() async {
+  void verifyLocation() async {
     bool _serviceEnabled = false;
     PermissionStatus _permissionGranted;
 
@@ -32,11 +30,12 @@ class LocationService {
         return;
       }
     }
+  }
+
+  Future<LocationData?> getLocation() async {
 
     locationData = await location.getLocation();
 
-    isLoaded = true;
-
-    _initializeCallback();
+    return locationData;
   }
 }

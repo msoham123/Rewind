@@ -6,6 +6,7 @@ import 'package:Rewind/services/LocationService.dart';
 import 'package:Rewind/newPost.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 import 'profile.dart';
 import 'package:Rewind/auth/home_screen.dart';

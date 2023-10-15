@@ -66,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     _db!.loadMemories();
 
     _loc = Provider.of<LocationService>(context, listen: false);
-    _loc!.initializeLocation();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
