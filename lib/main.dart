@@ -2,6 +2,10 @@ import 'package:Rewind/widget_projection.dart';
 import 'package:Rewind/location_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:Rewind/services/FirebaseAuthService.dart';
+import 'package:Rewind/services/FirestoreService.dart';
+import 'package:Rewind/services/LocationService.dart';
+import 'package:provider/provider.dart';
 
 import 'homepage.dart';
 import 'firebase_options.dart';
@@ -19,18 +23,27 @@ class RewindApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rewind',
-      theme: ThemeData(
-        fontFamily: 'JetBrainsMono',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(title: 'Rewind'),
-    );
+    return MultiProvider(
+        providers: [
+          Provider<FirebaseAuthService>(
+            create: (_) => FirebaseAuthService(),
+          ),
+          Provider<FirestoreService>(
+            create: (_) => FirestoreService(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Rewind',
+          theme: ThemeData(
+            fontFamily: 'JetBrainsMono',
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          home: const HomePage(title: "HI"),
+          //home: const MyHomePage(title: "HI"),
+        ));
   }
 }
-
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
 //
