@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Rewind/models/Memory.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
