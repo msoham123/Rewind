@@ -36,8 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
         preview: 'yo',
         timestamp: Timestamp.now(),
         lat: 10.4,
-        long: 15.6,
-        altitude: 20.0
+        long: 15.6
     );
     Message msg = Message(
       author: 'w4ciwehu54',

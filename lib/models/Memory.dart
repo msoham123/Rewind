@@ -9,10 +9,9 @@ class Memory {
   Timestamp timestamp;
   double lat;
   double long;
-  double altitude;
 
 
-  Memory({this.id, this.conversationId, required this.author, required this.emoji, required this.preview, required this.timestamp, required this.lat, required this.long, required this.altitude});
+  Memory({this.id, this.conversationId, required this.author, required this.emoji, required this.preview, required this.timestamp, required this.lat, required this.long});
 
   factory Memory.fromJson(Map<String, dynamic> data) {
     data = data ?? {};
@@ -24,8 +23,7 @@ class Memory {
       preview: data['preview'],
       timestamp: data['timestamp'],
       lat: data['lat'],
-      long: data['long'],
-      altitude: data['altitude']
+      long: data['long']
     );
   }
 
@@ -36,8 +34,7 @@ class Memory {
       'preview': preview,
       'timestamp': timestamp,
       'lat': lat,
-      'long': long,
-      'altitude': altitude,
+      'long': long
     };
     if (id != null) {
       map['id'] = id;

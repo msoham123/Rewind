@@ -37,7 +37,6 @@ class _NewPostPageState extends State<NewPostPage> {
           timestamp: Timestamp.now(),
           lat: pos.latitude ?? 0.0,
           long: pos.longitude ?? 0.0,
-          altitude: pos.altitude ?? 0.0,
       );
       Message msg = Message(
           author: authorId,
