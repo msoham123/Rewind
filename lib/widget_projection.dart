@@ -82,7 +82,7 @@ class _TapPageState extends State<TapPage> {
     this.arkitController = arkitController;
     this.arkitController.onNodeTap = (nodes) => onNodeTapHandler(nodes);
 
-    Provider.of<FirestoreService>(context, listen: true).getMemories().forEach(
+    Provider.of<FirestoreService>(context, listen: false).getMemories().forEach(
         (mem) => loadPost(mem)
     );
   }
@@ -102,7 +102,7 @@ class _TapPageState extends State<TapPage> {
     double long_num = long_dif / 2.5;
 
     final node = ARKitNode(
-      name: mem.conversationId,
+      name: mem.preview,
       geometry: sphere,
       position: vector.Vector3(long_dif / long_num, 0, lat_dif / lat_num),
     );
@@ -122,51 +122,41 @@ class _TapPageState extends State<TapPage> {
     showDialog<void>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-              content: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        color: new Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.all(Radius.circular(16))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                      radius: 18,
-                                      backgroundImage:
-                                          AssetImage('assets/images/pfp.jpg')),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                    child: Text(
-                                      "Andre Koga",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+          backgroundColor: Colors.white,
+              content: Container(
+                height: 150,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                    radius: 18,
+                                    backgroundImage:
+                                        AssetImage('assets/images/pfp.jpg')),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                  child: Text(
+                                    "Andre Koga",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                ],
-                              ),
-                              Text(
-                                "date!",
-                                style: TextStyle(
-                                    color: new Color(0xFF666666), fontSize: 16),
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Text('You tapped on '),
-                      ],
-                    )),
-              ),
+                      ),
+                      Text(name),
+                    ],
+                  )),
             ));
   }
 
