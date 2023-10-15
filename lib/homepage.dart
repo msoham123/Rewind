@@ -1,10 +1,11 @@
+import 'package:Rewind/profile.dart';
+import 'package:Rewind/widget_projection.dart';
 import 'package:Rewind/services/FirebaseAuthService.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:Rewind/services/LocationService.dart';
 import 'package:Rewind/newPost.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 import 'profile.dart';
 import 'package:Rewind/auth/home_screen.dart';
@@ -61,26 +62,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/bg.jpg"),
-                    fit: BoxFit.cover)),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(6),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [new Color(0xCC000000), Colors.transparent])),
-                  child: Row(
+        body: Stack(
+          children: [
+            TapPage(),
+            Container(
+              padding: EdgeInsets.all(6),
+              width: MediaQuery.of(context).size.width,
+              // decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //         begin: Alignment.topCenter,
+              //         end: Alignment.bottomCenter,
+              //         colors: [new Color(0xCC000000), Colors.transparent])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
@@ -110,10 +106,10 @@ class _HomePageState extends State<HomePage> {
                             iconSize: 28,
                             color: Colors.white),
                       ]),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -131,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.deepPurple,
           foregroundColor: Colors.white,
         ),
-      ),
+      )
     );
   }
 }

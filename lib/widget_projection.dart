@@ -18,13 +18,10 @@ class _TapPageState extends State<TapPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Tap Gesture Sample')),
-    body: Container(
-      child: ARKitSceneView(
-        enableTapRecognizer: true,
-        onARKitViewCreated: onARKitViewCreated,
-      ),
+  Widget build(BuildContext context) => Container(
+    child: ARKitSceneView(
+      enableTapRecognizer: true,
+      onARKitViewCreated: onARKitViewCreated,
     ),
   );
 
