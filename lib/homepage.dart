@@ -1,5 +1,6 @@
 import 'package:Rewind/services/FirebaseAuthService.dart';
 import 'package:Rewind/services/FirestoreService.dart';
+import 'package:Rewind/newPost.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {},
                             icon: Icon(Icons.people),
                             iconSize: 28,
-                            color: Colors.white),
+                            color: Colors.transparent),
                         Text("Rewind",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -110,7 +111,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
+          onPressed: () {
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.bottomToTop,
+                    child: NewPostPage()));
+          },
           tooltip: 'Post',
           child: const Icon(
             Icons.add,
