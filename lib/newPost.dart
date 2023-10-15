@@ -9,11 +9,14 @@ class NewPostPage extends StatefulWidget {
 }
 
 class _NewPostPageState extends State<NewPostPage> {
+  final _emojiController = TextEditingController();
+  final _postController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.red,
             body: Column(
               children: [
                 Padding(
@@ -46,7 +49,54 @@ class _NewPostPageState extends State<NewPostPage> {
                             color: Colors.transparent),
                       ]),
                 ),
-                Text("test")
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Form(
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _emojiController,
+                          decoration: const InputDecoration(
+                            labelText: 'Emoji',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Choose an emoji!';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _postController,
+                          decoration: const InputDecoration(
+                            labelText: 'Text',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Can\'t leave the post empty!';
+                            }
+                            return null;
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Post!',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             )));
   }
