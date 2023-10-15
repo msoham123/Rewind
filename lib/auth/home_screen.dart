@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Rewind/models/Message.dart';
+import 'package:Rewind/models/Memory.dart';
 import 'package:Rewind/auth/SignIn.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -32,16 +32,16 @@ class _MyHomePageState extends State<MyHomePage> {
   FirestoreService _db = FirestoreService();
 
   void _listMessages() async {
-    List<Message> messages = await _db.getMessages();
+    List<Memory> messages = await _db.getMessages();
     messages.forEach((msg) {
       print(msg.toJson());
     });
   }
 
   void _addTestMessage() async {
-    Message msg = Message(
+    Memory msg = Memory(
         author: 'w4ciwehu54',
-        content: 'Hello world',
+        conversationId: 'test',
         emoji: '🔥',
         timestamp: Timestamp.now(),
         lat: 10.4,

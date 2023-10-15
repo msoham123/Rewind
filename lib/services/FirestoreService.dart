@@ -1,18 +1,19 @@
 import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Rewind/models/Message.dart';
+import 'package:Rewind/models/Memory.dart';
+import 'package:Rewind/models/Conversation.dart';
 
 class FirestoreService {
   final _firestoreService = FirebaseFirestore.instance;
 
   // push a message to the 'messages' collection
-  Future<void> pushMessage(Message msg) async {
-    await _firestoreService.collection('messages').add(msg.toJson());
+  Future<void> addMemory(Message msg) async {
+    await _firestoreService.collection('memories').add(msg.toJson());
   }
 
   // return all messages from the message collection
-  Future<List<Message>> getMessages() async {
+  Future<List<Message>> getMemories() async {
     List<Message> output = [];
     await _firestoreService.collection('messages').get().then((snapshot) {
       snapshot.docs.forEach((doc) {
@@ -20,6 +21,18 @@ class FirestoreService {
       });
     });
     return output;
+  }
+
+  Future<void> addReply(String convoId, Message newMessage) async {
+    Conversation convo = await getConversation(convoId);
+    convo.messages.add(newMessage);
+    await _firestoreService.collection('conversations').doc(convoId).update(convo.toJson());
+  }
+
+  Future<Conversation> getConversation(String convoId) async {
+    return _firestoreService.collection('conversations').doc(convoId).get().then((doc) {
+      return Conversation.fromJson(doc.data()!);
+    });
   }
 }
 /*

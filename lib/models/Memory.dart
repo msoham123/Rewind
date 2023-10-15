@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Message {
+class Memory {
   String? id;
+  String conversationId;
   String author;
-  String content;
   String emoji;
   Timestamp timestamp;
   double lat;
@@ -11,14 +11,14 @@ class Message {
   double altitude;
 
 
-  Message({this.id, required this.author, required this.content, required this.emoji, required this.timestamp, required this.lat, required this.long, required this.altitude});
+  Memory({this.id, required this.conversationId, required this.author, required this.emoji, required this.timestamp, required this.lat, required this.long, required this.altitude});
 
-  factory Message.fromJson(Map<String, dynamic> data) {
+  factory Memory.fromJson(Map<String, dynamic> data) {
     data = data ?? {};
-    return Message(
+    return Memory(
       id: data['id'],
+      conversationId: data['conversationId'],
       author: data['author'],
-      content: data['content'],
       emoji: data['emoji'],
       timestamp: data['timestamp'],
       lat: data['lat'],
@@ -30,7 +30,7 @@ class Message {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       'author': author,
-      'content': content,
+      'conversationId': conversationId,
       'emoji': emoji,
       'timestamp': timestamp,
       'lat': lat,
