@@ -38,7 +38,7 @@ dependencies:
 #  ar_flutter_plugin: ^0.7.3
   location: ^5.0.3
   arkit_plugin: ^1.0.6
-
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
