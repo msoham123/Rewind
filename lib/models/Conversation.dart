@@ -10,7 +10,7 @@ class Conversation {
     data = data ?? {};
     return Conversation(
       id: data['id'],
-      messages: data['messages'].map((msg) => Message.fromJson(msg)),
+      messages: List<Message>.from(data['messages'].map((msg) => Message.fromJson(msg)).toList()),
     );
   }
 
@@ -18,9 +18,6 @@ class Conversation {
     Map<String, dynamic> map = {
       'messages': messages.map((msg) => msg.toJson()),
     };
-    if (id != null) {
-      map['id'] = id;
-    }
     return map;
   }
 }
