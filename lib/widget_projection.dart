@@ -1,11 +1,7 @@
-import 'dart:math';
-
-import 'package:Rewind/services/LocationService.dart';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
-import 'package:provider/provider.dart';
 
 class TapPage extends StatefulWidget {
   @override
@@ -21,11 +17,7 @@ class _TapPageState extends State<TapPage> {
 
   bool isLoaded = false;
 
-
-
   void initializeLocation() async {
-
-
     bool _serviceEnabled = false;
     PermissionStatus _permissionGranted;
 
@@ -47,12 +39,10 @@ class _TapPageState extends State<TapPage> {
 
     locationData = await location.getLocation();
 
-
     print("lat ${locationData!.latitude}");
     print("long ${locationData!.longitude}");
     print("alt ${locationData!.altitude}");
     print("heading ${locationData!.heading}");
-
 
     // flutter: lat 33.77816453570224
     // flutter: long -84.4050418037611
@@ -90,7 +80,7 @@ class _TapPageState extends State<TapPage> {
     this.arkitController.onNodeTap = (nodes) => onNodeTapHandler(nodes);
 
     final material =
-    ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
+        ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
     sphere = ARKitSphere(
       materials: [material],
       radius: 0.1,
@@ -105,7 +95,7 @@ class _TapPageState extends State<TapPage> {
     final node = ARKitNode(
       name: 'post#',
       geometry: sphere,
-      position: vector.Vector3(long_dif / long_num, 0 , lat_dif / lat_num),
+      position: vector.Vector3(long_dif / long_num, 0, lat_dif / lat_num),
     );
     this.arkitController.add(node);
   }
@@ -113,7 +103,7 @@ class _TapPageState extends State<TapPage> {
   void loadPosts() {
     for (int i = 0; i < 3; i++) {
       final material =
-      ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
+          ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
       sphere = ARKitSphere(
         materials: [material],
         radius: 0.1,
@@ -128,7 +118,7 @@ class _TapPageState extends State<TapPage> {
       final node = ARKitNode(
         name: 'post#',
         geometry: sphere,
-        position: vector.Vector3(long_dif / long_num, 0 , lat_dif / lat_num),
+        position: vector.Vector3(long_dif / long_num, 0, lat_dif / lat_num),
       );
       this.arkitController.add(node);
     }
@@ -137,35 +127,79 @@ class _TapPageState extends State<TapPage> {
   void onNodeTapHandler(List<String> nodesList) {
     final name = nodesList.first;
     final color =
-    (sphere!.materials.value!.first.diffuse as ARKitMaterialColor).color ==
-        Colors.yellow
-        ? Colors.blue
-        : Colors.yellow;
+        (sphere!.materials.value!.first.diffuse as ARKitMaterialColor).color ==
+                Colors.yellow
+            ? Colors.blue
+            : Colors.yellow;
     sphere!.materials.value = [
       ARKitMaterial(diffuse: ARKitMaterialProperty.color(color))
     ];
     showDialog<void>(
-      context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(content: Text('You tapped on $name')),
-    );
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              content: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        color: new Color(0xFFFFFFFF),
+                        borderRadius: BorderRadius.all(Radius.circular(16))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                      radius: 18,
+                                      backgroundImage:
+                                          AssetImage('assets/images/pfp.jpg')),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                    child: Text(
+                                      "Andre Koga",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                "date!",
+                                style: TextStyle(
+                                    color: new Color(0xFF666666), fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text('You tapped on '),
+                      ],
+                    )),
+              ),
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [new Color(0xCC000000), Colors.transparent])
-      ),
-      child: Center(
-        child: (isLoaded) ? ARKitSceneView(
-          enableTapRecognizer: true,
-          onARKitViewCreated: onARKitViewCreated,
-        ) : CircularProgressIndicator(),
-      )
-    );
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [new Color(0xCC000000), Colors.transparent])),
+        child: Center(
+          child: (isLoaded)
+              ? ARKitSceneView(
+                  enableTapRecognizer: true,
+                  onARKitViewCreated: onARKitViewCreated,
+                )
+              : CircularProgressIndicator(),
+        ));
   }
 }

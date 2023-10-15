@@ -1,6 +1,5 @@
 import 'package:Rewind/models/Memory.dart';
 import 'package:Rewind/services/FirestoreService.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -113,49 +112,49 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 List<Widget> listOfPosts(BuildContext context) {
-  List<Memory> memories = Provider.of<FirestoreService>(context, listen: false).getMemories();
+  List<Memory> memories =
+      Provider.of<FirestoreService>(context, listen: false).getMemories();
   List<Widget> allPosts = [];
-    memories.forEach(
-      (mem) => allPosts.add(Padding(
-            padding: const EdgeInsets.all(2),
-            child: GestureDetector(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: new Color(0xFF111111),
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+  memories.forEach((mem) => allPosts.add(Padding(
+        padding: const EdgeInsets.all(2),
+        child: GestureDetector(
+          child: Container(
+            decoration: BoxDecoration(
+                color: new Color(0xFF111111),
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "At Atlanta - Georgia Tech",
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                          Text(
-                            mem.timestamp.toDate().toString().substring(0, 16),
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ],
+                      Text(
+                        "At Atlanta - Georgia Tech",
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Text(
-                          mem.preview,
-                          style: TextStyle(
-                              color: Colors.white, fontFamily: "Inter"),
-                        ),
+                      Text(
+                        mem.timestamp.toDate().toString().substring(0, 16),
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                     ],
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                    child: Text(
+                      mem.preview,
+                      style:
+                          TextStyle(color: Colors.white, fontFamily: "Inter"),
+                    ),
+                  ),
+                ],
               ),
-              onTap: () {},
             ),
-          )));
+          ),
+          onTap: () {},
+        ),
+      )));
 
   return allPosts;
 }
