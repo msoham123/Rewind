@@ -1,4 +1,3 @@
-import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Rewind/models/Memory.dart';

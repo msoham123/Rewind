@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("../assets/images/bg.jpg"),
+                    image: AssetImage("assets/images/bg.jpg"),
                     fit: BoxFit.cover)),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             icon: CircleAvatar(
                                 radius: 18,
                                 backgroundImage:
-                                    NetworkImage('../assets/images/pfp.jpg')),
+                                    AssetImage('assets/images/pfp.jpg')),
                             iconSize: 28,
                             color: Colors.white),
                       ]),
