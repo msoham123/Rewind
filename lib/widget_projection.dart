@@ -103,11 +103,35 @@ class _TapPageState extends State<TapPage> {
     double long_num = long_dif / 2.5;
 
     final node = ARKitNode(
-      name: 'sphere',
+      name: 'post#',
       geometry: sphere,
       position: vector.Vector3(long_dif / long_num, 0 , lat_dif / lat_num),
     );
     this.arkitController.add(node);
+  }
+
+  void loadPosts() {
+    for (int i = 0; i < 3; i++) {
+      final material =
+      ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
+      sphere = ARKitSphere(
+        materials: [material],
+        radius: 0.1,
+      );
+
+      double lat_dif = 33.77816453570224 - locationData!.latitude!;
+      double long_dif = -84.40504197497975 - locationData!.longitude!;
+
+      double lat_num = lat_dif / -2.5;
+      double long_num = long_dif / 2.5;
+
+      final node = ARKitNode(
+        name: 'post#',
+        geometry: sphere,
+        position: vector.Vector3(long_dif / long_num, 0 , lat_dif / lat_num),
+      );
+      this.arkitController.add(node);
+    }
   }
 
   void onNodeTapHandler(List<String> nodesList) {

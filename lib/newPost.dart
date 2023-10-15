@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:Rewind/services/FirebaseAuthService.dart';
 import 'package:Rewind/services/FirestoreService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
